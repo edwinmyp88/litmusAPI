@@ -1,0 +1,414 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Litmus DB API
+  description: This is an API which is used to query data from Litmus MSSQL Database.
+servers:
+  - url: http://192.168.0.232:1880
+    description: Local Node-RED server
+tags:
+  - name: Scrap History
+    description: Retrieves record from scrapHistory table record
+  - name: Scrap Codes
+    description: Retrieves record from scrapCodes table record
+  - name: Incident User
+    description: Retrieves record from incident_user table record
+  - name: Downtime History
+    description: Retrieves record from downtimeHistory table record
+paths:
+  /publicEndpoint:
+    post:
+      summary: Generic endpoint to handle various operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  description: The operation to perform.
+                  enum: [getDowntime, getScrap]
+                API-Key:
+                  type: string
+                  description: API key for authorization.
+                Count:
+                  type: integer
+                  description: Number of rows to return.
+              required:
+                - method
+                - API-Key
+                - Count
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  message:
+                    type: string
+
+  /general:
+    get:
+      tags:
+        - General
+      summary: Request payload
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scrapCode'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  
+  /scrapHistory:
+    get:
+      tags:
+        - Scrap History
+      summary: Find scrap history by Id
+      parameters:
+        - name: id
+          in: query
+          description: Return full scrap history by querying ID (Try with 1735882)
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scrapHistory'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /scrapHistory/findByLineAndMachine:
+    get:
+      tags:
+        - Scrap History
+      summary: Filter by line number and machine number (query parameters)
+      description: Displaying top 100 results
+      parameters:
+        - name: line
+          in: query
+          description: Return line number
+          required: true
+          explode: true
+          schema:
+            type: string
+            enum:
+              - Line 1
+              - Line 2
+              - Line 3
+              - Line 4
+        - name: asset
+          in: query
+          description: Return machine number
+          required: true
+          explode: true
+          schema:
+            type: string
+            enum:
+              - Machine 1
+              - Machine 2
+              - Machine 3
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scrapHistory'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /scrapCodes:
+    get:
+      tags:
+        - Scrap Codes
+      summary: Get scrap code description (direct execution)
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scrapCode'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /incidentUser:
+    get:
+      tags:
+        - Incident User
+      summary: Generate user information (Incident response team))
+      parameters:
+        - name: id
+          in: query
+          description: Return complete user information by querying ID (Try with U001)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incidentUser'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /downtimeHistory:
+    get:
+      tags:
+        - Downtime History
+      summary: Find out what are the events that exceeded certain downtime duration
+      parameters:
+        - name: duration
+          in: query
+          description: Return downtime case by querying duration (in mins)
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/downtimeHistory'
+        '400':
+          description: Bad request 
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /downtimeHistory/date:
+    get:
+      tags:
+        - Downtime History
+      summary: query with date
+      parameters:
+        - name: startDate
+          in: query
+          description: select start date (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            #pattern: '\^d{4}-\d{2}-\d{2}$'
+            example: '2023-08-09'
+        - name: endDate
+          in: query
+          description: select end date (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            #pattern: '\^d{4}-\d{2}-\d{2}$'
+            example: '2023-08-10'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/downtimeHistory'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+  /incidentTeam:
+    post:
+      tags:
+        - Incident Team
+      summary: Contact details of incident response team
+      description: Add new personnel for incident response team
+      requestBody:
+        description: Add details for new personnel 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/incidentTeam'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incidentTeam'
+        '400':
+          description: Bad request
+        '409':
+          description: Conflict - Duplicate entry
+        '422':
+          description: Validation exception
+        '429':
+          description: Too many requests
+components:
+  schemas:
+    scrapHistory:         
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        scrapTime:
+          type: string
+          format: date-time
+        line:
+          type: string
+        asset:
+          type: string
+        shift:
+          type: integer
+          format: int32
+        SKU:
+          type: string
+        scrapCode:
+          type: integer
+          format: int32
+        scrapCode_text:
+          type: string
+        comment:
+          type: string
+    scrapCode:
+      type: object
+      properties:
+        scrapCode:
+          type: integer
+          format: int32
+        scrapCode_text:
+          type: string
+    incidentUser:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        mobile:
+          type: string
+        telegramID:
+          type: string
+        team:
+          type: string
+    downtimeHistory:
+      type: object
+      properties:
+        ID:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+        reasonCode_L1:
+          type: integer
+        reasonCode_L2:
+          type: integer
+        reasonCode_L1_text:
+          type: string
+        reasonCode_L2_text:
+          type: string
+        comment:
+          type: string
+        planned:
+          type: integer
+          format: int32
+        reasoncode_entered:
+          type: integer
+          format: int32
+        SKU:
+          type: string
+        shift:
+          type: integer
+          format: int32
+        asset:
+          type: string
+        line:
+          type: string
+    incidentTeam:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        username:
+          type: string
+          example: yzyeoh
+        firstname:
+          type: string
+          example: Sebastian
+        lastname:
+          type: string
+          example: Yeoh
+        email:
+          type: string
+          example: yuanzhenyeoh@gmail.com
+        mobile:
+          type: string
+          #cannot accept 0 as first input
+          example: 0189834592
+        telegramID:
+          type: string
+          example: 918437260
+        team:
+          type: string
+          example: T001
+        
+        
