@@ -52,7 +52,8 @@ To commit changes to your branch:
 ## Syncing with the Main Branch
 Before starting your work, ensure your branch is up to date with the main branch:
 
-1. **Fetch the latest changes:**
+1. **Ensure your local 'main' branch is up to date with the remote:**
+```git checkout main```
 ```git fetch origin main```
 
 2. **Merge the latest changes from the main branch into your current branch:**
