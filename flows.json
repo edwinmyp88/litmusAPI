@@ -1,85 +1,5 @@
 [
     {
-        "id": "781224d6064896f6",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "8e44c4936852bf1d",
-        "type": "tab",
-        "label": "Flow 2",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "4b68bfc32f930f1c",
-        "type": "tab",
-        "label": "Flow 3",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "399ae0bbb6479748",
-        "type": "tab",
-        "label": "Flow 4",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "8599581f0e8197ce",
-        "type": "tab",
-        "label": "Flow 5",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "5c83f8765f29479f",
-        "type": "tab",
-        "label": "Flow 6",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "40dc11812e2f50cf",
-        "type": "tab",
-        "label": "Flow 7",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "d51c145170155018",
-        "type": "tab",
-        "label": "Flow 8",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "eac46d969b6a844c",
-        "type": "tab",
-        "label": "Flow 10",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "07faf086ce88aab0",
-        "type": "tab",
-        "label": "Flow 11",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "aba326dbe5621f19",
         "type": "tab",
         "label": "Flow 9",
@@ -88,2001 +8,20 @@
         "env": []
     },
     {
-        "id": "99aa93fffde390a2",
-        "type": "MSSQL-CN",
-        "name": "litmus",
-        "server": "192.168.0.232",
-        "port": "",
-        "encyption": false,
-        "trustServerCertificate": false,
-        "database": "",
-        "useUTC": false,
-        "connectTimeout": "",
-        "requestTimeout": "",
-        "cancelTimeout": "",
-        "pool": "",
-        "parseJSON": false,
-        "enableArithAbort": true,
-        "readOnlyIntent": false
-    },
-    {
-        "id": "3a108e85f3c6ac98",
-        "type": "MSSQL-CN",
-        "tdsVersion": "7_4",
-        "name": "Litmus Live",
-        "server": "192.168.0.188",
-        "port": "1433",
-        "encyption": true,
-        "trustServerCertificate": true,
-        "database": "litmus",
-        "useUTC": true,
-        "connectTimeout": "15000",
-        "requestTimeout": "15000",
-        "cancelTimeout": "5000",
-        "pool": "5",
-        "parseJSON": false,
-        "enableArithAbort": true,
-        "readOnlyIntent": false
-    },
-    {
-        "id": "b085b0b23bc382ed",
-        "type": "inject",
-        "z": "781224d6064896f6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"id\":1735883}",
-        "payloadType": "json",
-        "x": 210,
-        "y": 240,
-        "wires": [
-            [
-                "61aa3f13f032ea3d"
-            ]
-        ]
-    },
-    {
-        "id": "9348b5c869f38884",
-        "type": "debug",
-        "z": "781224d6064896f6",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "fee91fa4c4ce8fbc",
-        "type": "function",
-        "z": "781224d6064896f6",
-        "name": "Query ",
-        "func": "let id = msg.payload.id;\nmsg.topic = 'SELECT * FROM litmus.dbo.scrapHistory WHERE id = @id';\n\nmsg.payload = [{\n    \"name\": \"id\",\n    \"value\": id,\n    \"type\": \"Int\"\n}];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 240,
-        "wires": [
-            [
-                "86d5c79e8b997f4c"
-            ]
-        ]
-    },
-    {
-        "id": "86d5c79e8b997f4c",
-        "type": "MSSQL",
-        "z": "781224d6064896f6",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 560,
-        "y": 300,
-        "wires": [
-            [
-                "eaf95650aebc800e",
-                "9348b5c869f38884"
-            ]
-        ]
-    },
-    {
-        "id": "76d930f112b2eef8",
-        "type": "http in",
-        "z": "781224d6064896f6",
-        "name": "",
-        "url": "/scrapHistory",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 160,
-        "wires": [
-            [
-                "61aa3f13f032ea3d"
-            ]
-        ]
-    },
-    {
-        "id": "eaf95650aebc800e",
-        "type": "http response",
-        "z": "781224d6064896f6",
-        "name": "HTTP 200 OK",
-        "statusCode": "200",
-        "headers": {},
-        "x": 780,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "8c1acad8d24d06ff",
-        "type": "comment",
-        "z": "781224d6064896f6",
-        "name": "Get Scrap History by ID",
-        "info": "",
-        "x": 160,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "91b89bdabd162dbd",
-        "type": "http response",
-        "z": "781224d6064896f6",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 810,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "61aa3f13f032ea3d",
-        "type": "rate-limiter",
-        "z": "781224d6064896f6",
-        "delay_action": "ratelimit",
-        "rate": "100",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 481.1111111111111,
-        "y": 180,
-        "wires": [
-            [
-                "fee91fa4c4ce8fbc"
-            ],
-            [
-                "91b89bdabd162dbd"
-            ]
-        ]
-    },
-    {
-        "id": "97add08248542058",
-        "type": "inject",
-        "z": "8e44c4936852bf1d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"asset\":\"Line 1\"}",
-        "payloadType": "json",
-        "x": 260,
-        "y": 280,
-        "wires": [
-            [
-                "5405e7be0837aaaa"
-            ]
-        ]
-    },
-    {
-        "id": "4516e0f829afa3f9",
-        "type": "debug",
-        "z": "8e44c4936852bf1d",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "7e6e9a105ee304ac",
-        "type": "function",
-        "z": "8e44c4936852bf1d",
-        "name": "function 2",
-        "func": "let line, asset;\nif (msg.req && msg.req.query){\n    line = msg.req.query.line;\n    asset = msg.req.query.asset;\n} else {\n    line = msg.payload.line;\n    asset = msg.payload.asset;\n}\nmsg.topic = 'SELECT TOP 100 * FROM litmus.dbo.scrapHistory WHERE line = @line AND asset = @asset';\n\nmsg.payload = [\n    { name: \"line\", type: \"VarChar\", value: line },\n    { name: \"asset\", type: \"Varchar\", value: asset}\n];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 300,
-        "wires": [
-            [
-                "b8899be5a56ca909",
-                "2dc3755ef77f1a54"
-            ]
-        ]
-    },
-    {
-        "id": "b8899be5a56ca909",
-        "type": "MSSQL",
-        "z": "8e44c4936852bf1d",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 720,
-        "y": 300,
-        "wires": [
-            [
-                "4516e0f829afa3f9",
-                "c3584ec5ea25f064"
-            ]
-        ]
-    },
-    {
-        "id": "2dc3755ef77f1a54",
-        "type": "debug",
-        "z": "8e44c4936852bf1d",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 460,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "efe9628fe980f975",
-        "type": "http in",
-        "z": "8e44c4936852bf1d",
-        "name": "",
-        "url": "/scrapHistory/findByLineAndMachine",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 180,
-        "y": 180,
-        "wires": [
-            [
-                "5405e7be0837aaaa"
-            ]
-        ]
-    },
-    {
-        "id": "c3584ec5ea25f064",
-        "type": "http response",
-        "z": "8e44c4936852bf1d",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 940,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "90bbc66fb2da96f6",
-        "type": "comment",
-        "z": "8e44c4936852bf1d",
-        "name": "Get scrap history by line number and machine number",
-        "info": "",
-        "x": 260,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "2952e54a9a1b6e39",
-        "type": "http response",
-        "z": "8e44c4936852bf1d",
-        "name": "",
-        "statusCode": "429",
-        "headers": {},
-        "x": 780,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "5405e7be0837aaaa",
-        "type": "rate-limiter",
-        "z": "8e44c4936852bf1d",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 520,
-        "y": 220,
-        "wires": [
-            [
-                "7e6e9a105ee304ac"
-            ],
-            [
-                "2952e54a9a1b6e39"
-            ]
-        ]
-    },
-    {
-        "id": "dc969e02096fc6bf",
-        "type": "comment",
-        "z": "4b68bfc32f930f1c",
-        "name": "Get scrap description by scrap code",
-        "info": "",
-        "x": 200,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "87c0b6caf5b92404",
-        "type": "inject",
-        "z": "4b68bfc32f930f1c",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"scrapCodes\":1}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 380,
-        "wires": [
-            [
-                "f85dc88c1d4a6551"
-            ]
-        ]
-    },
-    {
-        "id": "c9364029b045fddf",
-        "type": "debug",
-        "z": "4b68bfc32f930f1c",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "4f98634dc1e852fd",
-        "type": "function",
-        "z": "4b68bfc32f930f1c",
-        "name": "Query",
-        "func": "let scrapCodes = msg.payload.scrapCodes;\nmsg.topic = 'SELECT scrapCode, scrapCode_text FROM litmus.dbo.scrapCodes;'\nmsg.payload = [{\n    name: \"scrapCode\",\n    type: \"Int\",\n    value: scrapCodes\n}];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 423.3333333333333,
-        "y": 380,
-        "wires": [
-            [
-                "ba25ded17b921c9a",
-                "d5830ca0a8639598"
-            ]
-        ]
-    },
-    {
-        "id": "ba25ded17b921c9a",
-        "type": "MSSQL",
-        "z": "4b68bfc32f930f1c",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 588.8888888888889,
-        "y": 380,
-        "wires": [
-            [
-                "c9364029b045fddf",
-                "96a2a3701b0cb522"
-            ]
-        ]
-    },
-    {
-        "id": "d5830ca0a8639598",
-        "type": "debug",
-        "z": "4b68bfc32f930f1c",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "96a2a3701b0cb522",
-        "type": "http response",
-        "z": "4b68bfc32f930f1c",
-        "name": "HTTP 200 OK",
-        "statusCode": "200",
-        "headers": {},
-        "x": 840,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "93515414cba9135f",
-        "type": "http in",
-        "z": "4b68bfc32f930f1c",
-        "name": "",
-        "url": "/scrapCodes",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 160,
-        "y": 240,
-        "wires": [
-            [
-                "f85dc88c1d4a6551"
-            ]
-        ]
-    },
-    {
-        "id": "f85dc88c1d4a6551",
-        "type": "rate-limiter",
-        "z": "4b68bfc32f930f1c",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 491.1111111111111,
-        "y": 280,
-        "wires": [
-            [
-                "4f98634dc1e852fd"
-            ],
-            [
-                "72709647b8574185"
-            ]
-        ]
-    },
-    {
-        "id": "72709647b8574185",
-        "type": "http response",
-        "z": "4b68bfc32f930f1c",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 790,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "381ecf2523d332c7",
-        "type": "link in",
-        "z": "4b68bfc32f930f1c",
-        "name": "link in 2",
-        "links": [
-            "243c2bcc3a89e8de",
-            "7263b715c4873c52"
-        ],
-        "x": 225,
-        "y": 120,
-        "wires": [
-            [
-                "f85dc88c1d4a6551"
-            ]
-        ]
-    },
-    {
-        "id": "43d899a8f339ddc5",
-        "type": "comment",
-        "z": "399ae0bbb6479748",
-        "name": "Get user information (incident response team)",
-        "info": "",
-        "x": 230,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "e09e406b2ef37354",
-        "type": "inject",
-        "z": "399ae0bbb6479748",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"id\":\"U001\"}",
-        "payloadType": "json",
-        "x": 161.1111111111111,
-        "y": 340,
-        "wires": [
-            [
-                "6d54ac6c8b54e4bc"
-            ]
-        ]
-    },
-    {
-        "id": "f26d354e134f88eb",
-        "type": "debug",
-        "z": "399ae0bbb6479748",
-        "name": "debug 7",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 711.1111111111111,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "9f9b3249a44808b4",
-        "type": "function",
-        "z": "399ae0bbb6479748",
-        "name": "function 4",
-        "func": "let id = msg.payload.id;\nmsg.topic = 'SELECT * FROM litmus.dbo.incident_user WHERE id = @id';\n\nmsg.payload = [{\n    \"name\": \"id\",\n    \"value\": id,\n    \"type\": \"VarChar\"\n}];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 351.1111111111111,
-        "y": 340,
-        "wires": [
-            [
-                "6cdb09f23bb35a6a",
-                "60a8593c81f11147"
-            ]
-        ]
-    },
-    {
-        "id": "6cdb09f23bb35a6a",
-        "type": "MSSQL",
-        "z": "399ae0bbb6479748",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 531.1111111111111,
-        "y": 340,
-        "wires": [
-            [
-                "f26d354e134f88eb",
-                "b6c72982e30c90da"
-            ]
-        ]
-    },
-    {
-        "id": "60a8593c81f11147",
-        "type": "debug",
-        "z": "399ae0bbb6479748",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 531.1111111111111,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "2b189ffcb47cd3fb",
-        "type": "http in",
-        "z": "399ae0bbb6479748",
-        "name": "",
-        "url": "/incidentUser",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 161.1111111111111,
-        "y": 200,
-        "wires": [
-            [
-                "6d54ac6c8b54e4bc"
-            ]
-        ]
-    },
-    {
-        "id": "b6c72982e30c90da",
-        "type": "http response",
-        "z": "399ae0bbb6479748",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 701.1111111111111,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "6d54ac6c8b54e4bc",
-        "type": "rate-limiter",
-        "z": "399ae0bbb6479748",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 431.1111111111111,
-        "y": 240,
-        "wires": [
-            [
-                "9f9b3249a44808b4"
-            ],
-            [
-                "c1e24d5c38f68e27"
-            ]
-        ]
-    },
-    {
-        "id": "c1e24d5c38f68e27",
-        "type": "http response",
-        "z": "399ae0bbb6479748",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 730,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "6ac563ee05670e0b",
-        "type": "link in",
-        "z": "399ae0bbb6479748",
-        "name": "link in 3",
-        "links": [
-            "e57b1204d08e1187",
-            "c304a2eae6139a82"
-        ],
-        "x": 236.1111111111111,
-        "y": 140,
-        "wires": [
-            [
-                "6d54ac6c8b54e4bc"
-            ]
-        ]
-    },
-    {
-        "id": "28d0ad7ea3b6b64d",
-        "type": "comment",
-        "z": "8599581f0e8197ce",
-        "name": "Get event details based on downtime duration",
-        "info": "",
-        "x": 230,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "905dadbc54f25e4d",
-        "type": "inject",
-        "z": "8599581f0e8197ce",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"duration\":50}",
-        "payloadType": "json",
-        "x": 110,
-        "y": 320,
-        "wires": [
-            [
-                "78f38c616b0752d4"
-            ]
-        ]
-    },
-    {
-        "id": "48d3fec26bd6e648",
-        "type": "debug",
-        "z": "8599581f0e8197ce",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "afbf8f8d236b72fa",
-        "type": "function",
-        "z": "8599581f0e8197ce",
-        "name": "function 5",
-        "func": "let duration = msg.payload.duration;\nmsg.topic = 'SELECT TOP 100 * FROM litmus.dbo.downtimeHistory WHERE duration > @duration ORDER BY duration';\n\nmsg.payload = [{\n    \"name\": \"duration\",\n    \"value\": duration,\n    \"type\": \"Int\"\n}];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 320,
-        "wires": [
-            [
-                "2dcf320f50960c13",
-                "4fb286823981e7b1"
-            ]
-        ]
-    },
-    {
-        "id": "2dcf320f50960c13",
-        "type": "MSSQL",
-        "z": "8599581f0e8197ce",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 480,
-        "y": 320,
-        "wires": [
-            [
-                "48d3fec26bd6e648",
-                "d9084b4f0eb2d21a"
-            ]
-        ]
-    },
-    {
-        "id": "4fb286823981e7b1",
-        "type": "debug",
-        "z": "8599581f0e8197ce",
-        "name": "debug 10",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "f67f7d0bbfac97b8",
-        "type": "http in",
-        "z": "8599581f0e8197ce",
-        "name": "",
-        "url": "/downtimeHistory",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 120,
-        "y": 240,
-        "wires": [
-            [
-                "78f38c616b0752d4"
-            ]
-        ]
-    },
-    {
-        "id": "d9084b4f0eb2d21a",
-        "type": "http response",
-        "z": "8599581f0e8197ce",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 650,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "78f38c616b0752d4",
-        "type": "rate-limiter",
-        "z": "8599581f0e8197ce",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 380,
-        "y": 240,
-        "wires": [
-            [
-                "afbf8f8d236b72fa"
-            ],
-            [
-                "340f27c014bdf78d"
-            ]
-        ]
-    },
-    {
-        "id": "340f27c014bdf78d",
-        "type": "http response",
-        "z": "8599581f0e8197ce",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 678.8888888888889,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "dfc2a43df4970d8f",
-        "type": "comment",
-        "z": "5c83f8765f29479f",
-        "name": "Get scrap history based on user id",
-        "info": "",
-        "x": 200,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "23c753c8f17d9759",
-        "type": "debug",
-        "z": "5c83f8765f29479f",
-        "name": "debug 11",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 880,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "443b8e4045390438",
-        "type": "function",
-        "z": "5c83f8765f29479f",
-        "name": "function 6",
-        "func": "let id = msg.req.params.id;\nlet scrapTime = msg.payload.scrapTime;\nlet line = msg.payload.line;\nlet asset = msg.payload.asset;\nlet shift = msg.payload.shift;\nlet sku = msg.payload.sku;\nlet scrapCode = msg.payload.scrapCode;\nlet scrapCode_text = msg.payload.scrapCode_text;\nlet comment = msg.payload.comment;\n\nmsg.topic = 'SELECT * FROM litmus.dbo.incident_user WHERE id = @id';\n\nmsg.payload = [\n    {\n    \"name\": \"id\",\n    \"value\": id,\n    \"type\": \"VarChar\"\n},\n    {\n\n    }];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 160,
-        "wires": [
-            [
-                "cffe2fb97d73f00c",
-                "a17b4cd3eefb6725"
-            ]
-        ]
-    },
-    {
-        "id": "cffe2fb97d73f00c",
-        "type": "MSSQL",
-        "z": "5c83f8765f29479f",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 900,
-        "y": 160,
-        "wires": [
-            [
-                "23c753c8f17d9759",
-                "fd61353cb12c6c31"
-            ]
-        ]
-    },
-    {
-        "id": "a17b4cd3eefb6725",
-        "type": "debug",
-        "z": "5c83f8765f29479f",
-        "name": "debug 12",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "1f32b1806a25fc78",
-        "type": "http in",
-        "z": "5c83f8765f29479f",
-        "name": "",
-        "url": "/scrapHistory",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 130,
-        "y": 160,
-        "wires": [
-            [
-                "b575dd672afa96f5"
-            ]
-        ]
-    },
-    {
-        "id": "fd61353cb12c6c31",
-        "type": "http response",
-        "z": "5c83f8765f29479f",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 1090,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "c78b7d47da5d8c2b",
-        "type": "inject",
-        "z": "5c83f8765f29479f",
-        "name": "",
-        "props": [
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 170,
-        "y": 120,
-        "wires": [
-            [
-                "b575dd672afa96f5"
-            ]
-        ]
-    },
-    {
-        "id": "b575dd672afa96f5",
-        "type": "rate-limiter",
-        "z": "5c83f8765f29479f",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 400,
-        "y": 160,
-        "wires": [
-            [
-                "443b8e4045390438"
-            ],
-            [
-                "9ae53f6290aa27fd"
-            ]
-        ]
-    },
-    {
-        "id": "9ae53f6290aa27fd",
-        "type": "http response",
-        "z": "5c83f8765f29479f",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 410,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "948736f5d6b8b4d5",
-        "type": "inject",
-        "z": "40dc11812e2f50cf",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"startDate\":\"2024-02-16\",\"endDate\":\"2024-02-16\"}",
-        "payloadType": "json",
-        "x": 130,
-        "y": 300,
-        "wires": [
-            [
-                "13aab7a688bd9865"
-            ]
-        ]
-    },
-    {
-        "id": "960df8f164e33d4e",
-        "type": "debug",
-        "z": "40dc11812e2f50cf",
-        "name": "debug 13",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "1375e0f0355055a4",
-        "type": "function",
-        "z": "40dc11812e2f50cf",
-        "name": "function 7",
-        "func": "let startDate = msg.payload.startDate;\nlet endDate = msg.payload.endDate;\n\nmsg.topic = 'SELECT TOP 1000 * FROM litmus.dbo.downtimeHistory WHERE CAST(startTime AS DATE) BETWEEN @startDate AND @endDate';\n\nmsg.payload = [\n    { name: 'startDate', type: 'VarChar', value: startDate },\n    { name: 'endDate', type: 'VarChar', value: endDate }\n];\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 300,
-        "wires": [
-            [
-                "98057de77ed16e04",
-                "28bd29016a5b4686"
-            ]
-        ]
-    },
-    {
-        "id": "98057de77ed16e04",
-        "type": "MSSQL",
-        "z": "40dc11812e2f50cf",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 520,
-        "y": 300,
-        "wires": [
-            [
-                "960df8f164e33d4e",
-                "ac483d34c67e2020"
-            ]
-        ]
-    },
-    {
-        "id": "28bd29016a5b4686",
-        "type": "debug",
-        "z": "40dc11812e2f50cf",
-        "name": "debug 14",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 520,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "c703665f7f407701",
-        "type": "http in",
-        "z": "40dc11812e2f50cf",
-        "name": "",
-        "url": "/downtimeHistory/Date",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 160,
-        "y": 180,
-        "wires": [
-            [
-                "13aab7a688bd9865"
-            ]
-        ]
-    },
-    {
-        "id": "ac483d34c67e2020",
-        "type": "http response",
-        "z": "40dc11812e2f50cf",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 690,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "049bb4bfd0390a9e",
-        "type": "comment",
-        "z": "40dc11812e2f50cf",
-        "name": "Get Downtime History by Date",
-        "info": "",
-        "x": 180,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "0f703ff7bc9aac93",
-        "type": "http response",
-        "z": "40dc11812e2f50cf",
-        "name": "HTTP 429 Too Many Requests",
-        "statusCode": "429",
-        "headers": {},
-        "x": 750,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "13aab7a688bd9865",
-        "type": "rate-limiter",
-        "z": "40dc11812e2f50cf",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 451.1111111111111,
-        "y": 180,
-        "wires": [
-            [
-                "1375e0f0355055a4"
-            ],
-            [
-                "0f703ff7bc9aac93"
-            ]
-        ]
-    },
-    {
-        "id": "37688d64a572fe3e",
-        "type": "template",
-        "z": "40dc11812e2f50cf",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "This is the payload: {{payload}} !",
-        "output": "str",
-        "x": 760,
-        "y": 400,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e8a0ed6e3cc4b382",
-        "type": "e-mail",
-        "z": "40dc11812e2f50cf",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "authtype": "BASIC",
-        "saslformat": true,
-        "token": "oauth2Response.access_token",
-        "secure": true,
-        "tls": true,
-        "name": "yuanzhenyeoh@gmail.com",
-        "dname": "Sebastian Yeoh",
-        "x": 940,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "65e36494996e4e9d",
-        "type": "inject",
-        "z": "d51c145170155018",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"id\":\"1\",\"username\":\"yz\",\"firstname\":\"Sebastian\",\"lastname\":\"tan\",\"email\":\"tctan@gmail.com\",\"mobile\":\"0184810228\",\"telegramID\":\"123456789\",\"team\":\"{T001}\"}",
-        "payloadType": "json",
-        "x": 110,
-        "y": 320,
-        "wires": [
-            [
-                "d449c05723a8dbf5"
-            ]
-        ]
-    },
-    {
-        "id": "c60e2b01596fb797",
-        "type": "debug",
-        "z": "d51c145170155018",
-        "name": "debug 15",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 920,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "a39350619f4f2b9c",
-        "type": "function",
-        "z": "d51c145170155018",
-        "name": "Data insertion",
-        "func": "if (!msg.duplicateFound){\n    msg.topic = 'INSERT INTO litmus.dbo.incident_user (id, username, firstname, lastname, email, mobile, telegramID, team) VALUES (@id, @username, @firstname, @lastname, @email, @mobile, @telegramID, @team)';\n    msg.payload = [\n        { name: 'id', type: 'VarChar', value: msg.payload.id },\n        { name: 'username', type: 'VarChar', value: msg.payload.username },\n        { name: 'firstname', type: 'VarChar', value: msg.payload.firstname },\n        { name: 'lastname', type: 'VarChar', value: msg.payload.lastname },\n        { name: 'email', type: 'VarChar', value: msg.payload.email },\n        { name: 'mobile', type: 'VarChar', value: msg.payload.mobile },\n        { name: 'telegramID', type: 'VarChar', value: msg.payload.telegramID },\n        { name: 'team', type: 'VarChar', value: msg.payload.team }\n    ];\n} else {\n    msg.topic = 'INSERT INTO litmus.dbo.incident_user (id, username, firstname, lastname, email, mobile, telegramID, team) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)';\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 393.33333333333337,
-        "y": 320,
-        "wires": [
-            [
-                "17141778da9eb3e0",
-                "3a612ff78f8ffd58"
-            ]
-        ]
-    },
-    {
-        "id": "17141778da9eb3e0",
-        "type": "MSSQL",
-        "z": "d51c145170155018",
-        "mssqlCN": "99aa93fffde390a2",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "payload",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 640,
-        "y": 320,
-        "wires": [
-            [
-                "c60e2b01596fb797",
-                "4cbb3363ec45599e"
-            ]
-        ]
-    },
-    {
-        "id": "3a612ff78f8ffd58",
-        "type": "debug",
-        "z": "d51c145170155018",
-        "name": "debug 16",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 740,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "dd5083fb0c53bce9",
-        "type": "http in",
-        "z": "d51c145170155018",
-        "name": "",
-        "url": "/incidentTeam",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 140,
-        "wires": [
-            [
-                "d449c05723a8dbf5"
-            ]
-        ]
-    },
-    {
-        "id": "4cbb3363ec45599e",
-        "type": "http response",
-        "z": "d51c145170155018",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 1100,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "01c36b13677cd0a7",
-        "type": "comment",
-        "z": "d51c145170155018",
-        "name": "Add new incident response team",
-        "info": "",
-        "x": 190,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "bc92896523fae652",
-        "type": "function",
-        "z": "d51c145170155018",
-        "name": "Duplication checker",
-        "func": "msg.topic = 'SELECT COUNT(*) AS count FROM litmus.dbo.incident_user WHERE id = @id AND username = @username';\nmsg.params = [\n    { name: 'id', type: 'VarChar', value: msg.payload.id },\n    { name: 'username', type: 'VarChar', value: msg.payload.username }\n];\n\nmsg.originalPayload = msg.payload;\nreturn msg;\n\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 467.7777777777778,
-        "y": 240,
-        "wires": [
-            [
-                "8a00b331b59ff507",
-                "c44ad62c2535c1b1"
-            ]
-        ]
-    },
-    {
-        "id": "4d40e03758c4c8c4",
-        "type": "function",
-        "z": "d51c145170155018",
-        "name": "Result handling",
-        "func": "if (msg.payload && msg.payload[0].count > 0){\n    node.error(\"Duplicate entry found for username.\");\n    return null;\n} else {\n    msg.payload = msg.originalPayload;\n    return msg;\n}\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 880,
-        "y": 240,
-        "wires": [
-            [
-                "31cef844bd95dd00",
-                "a39350619f4f2b9c"
-            ]
-        ]
-    },
-    {
-        "id": "31cef844bd95dd00",
-        "type": "debug",
-        "z": "d51c145170155018",
-        "name": "debug 17",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1080,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "c44ad62c2535c1b1",
-        "type": "MSSQL",
-        "z": "d51c145170155018",
-        "mssqlCN": "99aa93fffde390a2",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "topic",
-        "queryOptType": "msg",
-        "paramsOpt": "params",
-        "paramsOptType": "msg",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": false,
-        "params": [],
-        "x": 680,
-        "y": 240,
-        "wires": [
-            [
-                "4d40e03758c4c8c4"
-            ]
-        ]
-    },
-    {
-        "id": "8a00b331b59ff507",
-        "type": "debug",
-        "z": "d51c145170155018",
-        "name": "debug 18",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 620,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "d449c05723a8dbf5",
-        "type": "rate-limiter",
-        "z": "d51c145170155018",
-        "delay_action": "ratelimit",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "drop_select": "drop",
-        "addcurrentcount": false,
-        "name": "",
-        "outputs": "2",
-        "buffer_size": "0",
-        "buffer_drop": "buffer_drop_new",
-        "emit_msg_2nd": true,
-        "control_topic": "",
-        "version": 0.0018,
-        "x": 361.1111111111111,
-        "y": 160,
-        "wires": [
-            [
-                "bc92896523fae652"
-            ],
-            [
-                "ef061b1c45be61d9"
-            ]
-        ]
-    },
-    {
-        "id": "ef061b1c45be61d9",
-        "type": "http response",
-        "z": "d51c145170155018",
-        "name": "",
-        "statusCode": "429",
-        "headers": {},
-        "x": 600,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "45a42f96b2adcf1b",
-        "type": "template",
-        "z": "eac46d969b6a844c",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "This is the payload: {{payload}} !",
-        "output": "str",
-        "x": 560,
-        "y": 200,
-        "wires": [
-            [
-                "dba48609cf146586",
-                "5bab59da022da185"
-            ]
-        ]
-    },
-    {
-        "id": "7fc7a9582e9ad84b",
-        "type": "inject",
-        "z": "eac46d969b6a844c",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "First Testing",
-        "payload": "This is a test message",
-        "payloadType": "str",
-        "x": 340,
-        "y": 260,
-        "wires": [
-            [
-                "45a42f96b2adcf1b"
-            ]
-        ]
-    },
-    {
-        "id": "dba48609cf146586",
-        "type": "debug",
-        "z": "eac46d969b6a844c",
-        "name": "debug 19",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 740,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "0caeb1a652ee14c9",
-        "type": "http in",
-        "z": "eac46d969b6a844c",
-        "name": "",
-        "url": "/testing",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 350,
-        "y": 160,
-        "wires": [
-            [
-                "45a42f96b2adcf1b"
-            ]
-        ]
-    },
-    {
-        "id": "5bab59da022da185",
-        "type": "http response",
-        "z": "eac46d969b6a844c",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 750,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "d280e90027e1e020",
-        "type": "comment",
-        "z": "eac46d969b6a844c",
-        "name": "Test",
-        "info": "",
-        "x": 90,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "f510be3658d193fa",
-        "type": "comment",
-        "z": "07faf086ce88aab0",
-        "name": "Count downtime instance for Machine 1 for every hour",
-        "info": "",
-        "x": 260,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "5cab23cdf12c2a93",
-        "type": "e-mail",
-        "z": "07faf086ce88aab0",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "authtype": "BASIC",
-        "saslformat": true,
-        "token": "oauth2Response.access_token",
-        "secure": true,
-        "tls": true,
-        "name": "tp068144@mail.apu.edu.my",
-        "dname": "",
-        "x": 920,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "ecc2c12d92f47633",
-        "type": "inject",
-        "z": "07faf086ce88aab0",
-        "name": "",
-        "props": [
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "Machine 1 Downtime alert!",
-        "payload": "Test content",
-        "payloadType": "str",
-        "x": 210,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "bd1ab2e72de588b8",
-        "type": "MSSQL",
-        "z": "07faf086ce88aab0",
-        "mssqlCN": "3a108e85f3c6ac98",
-        "name": "",
-        "outField": "payload",
-        "returnType": 0,
-        "throwErrors": 1,
-        "query": "SELECT \r\n  COUNT(*) AS TotalDowntimeInstances\r\nFROM \r\n  litmus.dbo.downtimeHistory\r\nWHERE \r\n  asset = 'Machine 1' AND\r\n  startTime >= DATEADD(hour, DATEDIFF(hour, 0, GETDATE()) - 1, 0) AND\r\n  startTime < DATEADD(hour, DATEDIFF(hour, 0, GETDATE()), 0)\r\n",
-        "modeOpt": "queryMode",
-        "modeOptType": "query",
-        "queryOpt": "payload",
-        "queryOptType": "editor",
-        "paramsOpt": "queryParams",
-        "paramsOptType": "none",
-        "rows": "rows",
-        "rowsType": "msg",
-        "parseMustache": true,
-        "params": [],
-        "x": 440,
-        "y": 240,
-        "wires": [
-            [
-                "2411cb6ddca2146b",
-                "a52e7a26b6e6a155"
-            ]
-        ]
-    },
-    {
-        "id": "2411cb6ddca2146b",
-        "type": "debug",
-        "z": "07faf086ce88aab0",
-        "name": "debug 24",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "401f99531d970dd4",
-        "type": "inject",
-        "z": "07faf086ce88aab0",
-        "name": "",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 190,
-        "y": 240,
-        "wires": [
-            [
-                "bd1ab2e72de588b8"
-            ]
-        ]
-    },
-    {
-        "id": "853412668905b14b",
-        "type": "template",
-        "z": "07faf086ce88aab0",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "This is the payload: {{payload}} !",
-        "output": "str",
-        "x": 460,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a52e7a26b6e6a155",
-        "type": "function",
-        "z": "07faf086ce88aab0",
-        "name": "function 10",
-        "func": "// Example function to set email subject and body\nmsg.topic = \"Downtime Report for Machine 1\"; // This will be the email subject\nmsg.payload = \"Total downtime instances in the last hour: \" + msg.payload[0].TotalDowntimeInstances; // Assuming msg.payload contains the downtime instances count\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 670,
-        "y": 280,
-        "wires": [
-            [
-                "5cab23cdf12c2a93"
-            ]
-        ]
-    },
-    {
         "id": "34f34f8c9792994d",
         "type": "http in",
         "z": "aba326dbe5621f19",
         "name": "",
-        "url": "/litmusGeneral",
+        "url": "/api/litmusData",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 150,
-        "y": 140,
+        "x": 140,
+        "y": 320,
         "wires": [
             [
-                "e3526f78e93eeb5b"
-            ]
-        ]
-    },
-    {
-        "id": "9f254b532b72da02",
-        "type": "function",
-        "z": "aba326dbe5621f19",
-        "name": "Main function",
-        "func": "const requestBody = msg.payload;\nlet tableName = \"\";\nconst DEFAULT_COUNT = 100;\nconst {\n    method,\n    dateFrom,\n    dateTo,\n    api_key,\n    count = DEFAULT_COUNT\n} = requestBody;\n\nswitch (method) {\n    case \"anomalyHistory\":\n        tableName = \"litmus.dbo.anomalyHistory\";\n        break;  // Prevent fall-through with a break statement\n    case \"avi17\":\n        tableName = \"litmus.dbo.avi17\";\n        break;  // Prevent fall-through with a break statement\n    case \"avi1718\":\n        tableName = \"litmus.dbo.avi1718\";\n        break;  // Prevent fall-through with a break statement\n    case \"avi999\":\n        tableName = \"litmus.dbo.avi999\";\n        break;  // Prevent fall-through with a break statement\n    case \"downtimeHistory\":\n        tableName = \"litmus.dbo.downtimeHistory\";\n        break;  // Prevent fall-through with a break statement\n    case \"enigparam\":\n        tableName = \"litmus.dbo.enigparam\";\n        break;  // Prevent fall-through with a break statement\n    case \"filedrop\":\n        tableName = \"litmus.dbo.filedrop\";\n        break;  // Prevent fall-through with a break statement\n    case \"incident\":\n        tableName = \"litmus.dbo.incident\";\n        break;  // Prevent fall-through with a break statement\n    case \"incidentMonitor\":\n        tableName = \"litmus.dbo.incident_monitor\";\n        break;  // Prevent fall-through with a break statement\n    case \"incidentSop\":\n        tableName = \"litmus.dbo.incident_sop\";\n        break;  // Prevent fall-through with a break statement\n    case \"incidentTeam\":\n        tableName = \"litmus.dbo.incident_team\";\n        break;  // Prevent fall-through with a break statement\n    case \"incidentUser\":\n        tableName = \"litmus.dbo.incident_user\";\n        break;  // Prevent fall-through with a break statement\n    case \"jimiiotDevices\":\n        tableName = \"litmus.dbo.jimiiotDevices\";\n        break;  // Prevent fall-through with a break statement\n    case \"MLTrain\":\n        tableName = \"litmus.dbo.MLTrain\";\n        break;  // Prevent fall-through with a break statement\n    case \"modelFeature\":\n        tableName = \"litmus.dbo.modelfeature\";\n        break;  // Prevent fall-through with a break statement\n    case \"pcb_enig\":\n        tableName = \"litmus.dbo.pcb_enig\";\n        break;  // Prevent fall-through with a break statement\n    case \"pcb_thickness\":\n        tableName = \"litmus.dbo.pcb_thickness\";\n        break;  // Prevent fall-through with a break statement\n    case \"reasonCodes\":\n        tableName = \"litmus.dbo.reasonCodes\";\n        break;  // Prevent fall-through with a break statement\n    case \"scrapCodes\":\n        tableName = \"litmus.dbo.scrapCodes\";\n        break;  // Prevent fall-through with a break statement\n    case \"scrapHistory\":\n        tableName = \"litmus.dbo.scrapHistory\";\n        break;  // Prevent fall-through with a break statement\n    case \"spc\":\n        tableName = \"litmus.dbo.spc\";\n        break;  // Prevent fall-through with a break statement\n    case \"trackAsset\":\n        tableName = \"litmus.dbo.track_asset\";\n        break;  // Prevent fall-through with a break statement\n    \n    \n    default:\n        // Handle unknown method\n        msg.payload = {\n            error: true,\n            message: \"Invalid 'method' specified in the request.\"\n        };\n        msg.statusCode = 400; // Bad Request HTTP status code\n        return msg; // Stop execution and return error message\n}\n\n// Use backticks for template literals to embed expressions\nlet sqlQuery = `SELECT TOP ${count} * FROM ${tableName}`;\n\n// If dateFrom and dateTo are provided and applicable, add a WHERE clause\nif (dateFrom && dateTo) {\n    // You should also ensure that dateFrom and dateTo are in the correct format\n    // and sanitized to prevent SQL injection\n    sqlQuery += ` WHERE Date BETWEEN '${dateFrom}' AND '${dateTo}'`;\n}\n\n// Now, set the query in msg.topic or msg.payload as needed by your MSSQL node\nmsg.topic = sqlQuery;\n\n// Continue with the flow\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 280,
-        "wires": [
-            [
-                "5d2aea17334fed6a"
-            ]
-        ]
-    },
-    {
-        "id": "97f648d65190146b",
-        "type": "inject",
-        "z": "aba326dbe5621f19",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"method\":\"scrapHistory\",\"count\":10}",
-        "payloadType": "json",
-        "x": 190,
-        "y": 280,
-        "wires": [
-            [
-                "9f254b532b72da02"
+                "b06b08ad0c5219fd",
+                "eb230fddeb5cba56"
             ]
         ]
     },
@@ -2090,9 +29,9 @@
         "id": "b69e245bb8b7879f",
         "type": "comment",
         "z": "aba326dbe5621f19",
-        "name": "Generic endpoint (Main)",
+        "name": "Generic endpoint (Payload Basic Auth)",
         "info": "",
-        "x": 160,
+        "x": 190,
         "y": 60,
         "wires": []
     },
@@ -2100,27 +39,11 @@
         "id": "c8dfca2f4c270630",
         "type": "http response",
         "z": "aba326dbe5621f19",
-        "name": "",
+        "name": "OK",
         "statusCode": "200",
         "headers": {},
-        "x": 820,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "c1ed282b5045c7fb",
-        "type": "debug",
-        "z": "aba326dbe5621f19",
-        "name": "debug 23",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 280,
+        "x": 1030,
+        "y": 480,
         "wires": []
     },
     {
@@ -2143,21 +66,38 @@
         "rowsType": "msg",
         "parseMustache": true,
         "params": [],
-        "x": 620,
-        "y": 280,
+        "x": 880,
+        "y": 460,
         "wires": [
             [
-                "c1ed282b5045c7fb",
+                "58f67c0df0ba7e81",
                 "c8dfca2f4c270630"
             ]
         ]
+    },
+    {
+        "id": "7c2f1f70c3e9d215",
+        "type": "debug",
+        "z": "aba326dbe5621f19",
+        "name": "debug 30",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 280,
+        "wires": []
     },
     {
         "id": "e3526f78e93eeb5b",
         "type": "rate-limiter",
         "z": "aba326dbe5621f19",
         "delay_action": "ratelimit",
-        "rate": "10",
+        "rate": "12",
         "nbRateUnits": "1",
         "rateUnits": "minute",
         "drop_select": "drop",
@@ -2169,46 +109,776 @@
         "emit_msg_2nd": true,
         "control_topic": "",
         "version": 0.0018,
-        "x": 420,
-        "y": 200,
+        "x": 160,
+        "y": 420,
         "wires": [
             [
-                "9f254b532b72da02"
+                "a21dd7501b53d7d5"
             ],
             [
-                "0f4e7eb2312ff1f8"
+                "16da9591dcfc40dd"
             ]
         ]
     },
     {
-        "id": "2c49b7a52f4f233e",
-        "type": "http response",
+        "id": "29acc902adb36e7d",
+        "type": "debug",
         "z": "aba326dbe5621f19",
-        "name": "",
-        "statusCode": "429",
-        "headers": {},
-        "x": 900,
-        "y": 140,
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 280,
         "wires": []
     },
     {
-        "id": "0f4e7eb2312ff1f8",
+        "id": "9463d0385db06f16",
+        "type": "MSSQL",
+        "z": "aba326dbe5621f19",
+        "mssqlCN": "99aa93fffde390a2",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "SELECT PasswordHash FROM litmus.dbo.api_user WHERE Username = @username",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "topic",
+        "queryOptType": "msg",
+        "paramsOpt": "parameters",
+        "paramsOptType": "msg",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 660,
+        "y": 320,
+        "wires": [
+            [
+                "7c2f1f70c3e9d215",
+                "f13e006034c969e9"
+            ]
+        ]
+    },
+    {
+        "id": "25a8d28def4b5d51",
+        "type": "debug",
+        "z": "aba326dbe5621f19",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "4d1801ab7840c3fc",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Unauthorized",
+        "statusCode": "401",
+        "headers": {},
+        "x": 1690,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "659f7ce486b2a840",
         "type": "function",
         "z": "aba326dbe5621f19",
-        "name": "HTTP 429 response body",
-        "func": "msg.payload = {\n    error: \"Too Many Requests\",\n    message: \"You have exceeded the rate limit for requests. Please try again later.\"\n};\nreturn msg;",
+        "name": "Retrieve user credentials",
+        "func": "msg.method = msg.payload.method;\nmsg.query = `SELECT password FROM litmus.dbo.users WHERE username = @username`;\nmsg.params = [\n    { name: 'username', type: 'VarChar', value: msg.credentials.username }\n];\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 140,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7d44b25186f8007c",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Bad Request",
+        "statusCode": "400",
+        "headers": {},
+        "x": 1690,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "563b866a043fcccd",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "400 Bad Request",
+        "func": "msg.payload = {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Bad Request.\",\n    \"description\": \"The request cannot be processed due to malformed syntax. Please check the request format and parameters.\",\n    \"errors\": [\n      {\n        \"field\": \"email\",\n        \"message\": \"Email is invalid.\"\n      },\n      {\n        \"field\": \"password\",\n        \"message\": \"Password must be at least 8 characters long.\"\n      }\n    ],\n    \"type\": \"INVALID_REQUEST_SYNTAX\",\n    \"documentation_url\": \"https://yourapi.com/docs/errors#400\"\n  }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d616e425f3e9d672",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Too Many Requests",
+        "statusCode": "429",
+        "headers": {},
+        "x": 560,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "16da9591dcfc40dd",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Rate limit",
+        "func": "msg.payload = {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Too Many Requests.\",\n    \"description\": \"You have exceeded the request limit for this API. Please wait before sending more requests.\",\n    \"retry_after_seconds\": 60\n  }\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 560,
         "wires": [
             [
-                "2c49b7a52f4f233e"
+                "d616e425f3e9d672"
             ]
         ]
+    },
+    {
+        "id": "b93fd75ddac4be16",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "function 11",
+        "func": "// Assume `msg.payload` contains the error details or user input.\nlet responseBody;\nlet statusCode;\n\n// Check for different error conditions and set the status code and response body accordingly\nif (msg.payload.errorType === \"bad_request\") {\n    statusCode = 400;\n    responseBody = {\n        error: {\n            code: 400,\n            message: \"Bad Request\",\n            description: \"The server could not understand the request due to invalid syntax.\"\n        }\n    };\n} else if (msg.payload.errorType === \"unauthorized\") {\n    statusCode = 401;\n    responseBody = {\n        error: {\n            code: 401,\n            message: \"Unauthorized\",\n            description: \"Authentication is required and has failed or has not yet been provided.\"\n        }\n    };\n} else if (msg.payload.errorType === \"forbidden\") {\n    statusCode = 403;\n    responseBody = {\n        error: {\n            code: 403,\n            message: \"Forbidden\",\n            description: \"You do not have the necessary permissions to access this resource.\"\n        }\n    };\n} else {\n    // Default to internal server error\n    statusCode = 500;\n    responseBody = {\n        error: {\n            code: 500,\n            message: \"Internal Server Error\",\n            description: \"The server has encountered a situation it doesn't know how to handle.\"\n        }\n    };\n}\n\n// Set the status code and payload for the response\nmsg.statusCode = statusCode;\nmsg.payload = responseBody;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58f67c0df0ba7e81",
+        "type": "debug",
+        "z": "aba326dbe5621f19",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9620f2395a93a3bb",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "400",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 280,
+        "wires": [
+            [
+                "7d44b25186f8007c"
+            ]
+        ]
+    },
+    {
+        "id": "d50c0b5f10f9a229",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "401",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 120,
+        "wires": [
+            [
+                "4d1801ab7840c3fc"
+            ]
+        ]
+    },
+    {
+        "id": "38a1abfd54aad44d",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "function 12",
+        "func": "// This function assumes that the auth headers are basic auth.\n// Extract the base64 encoded string from the headers.\nconst authHeader = msg.req.headers.authorization;\n\n// If no auth header is present, return a 401 Unauthorized error.\nif (!authHeader) {\n    msg.statusCode = 401;\n    msg.payload = {\n        error: \"Unauthorized\",\n        message: \"No authentication headers provided.\"\n    };\n    return [null, msg]; // The first output is null to stop the flow\n}\n\n// If the authHeader is present, decode it to get the username\nconst base64Credentials = authHeader.split(' ')[1];\nconst credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');\nconst [username, password] = credentials.split(':');\n\n// Now you would typically query your database to check if the username exists.\n// Since we can't perform asynchronous operations directly here,\n// we'll set the username on the message object and use a subsequent MSSQL node to query the database.\nmsg.username = username;\n\n// Pass the message to the next node (MSSQL node) to query the database.\n// We'll handle the result of that query in a different function node.\nreturn [msg, null]; // The second output is null because we don't want to return a response yet.\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90d1bd4ebbbab7a1",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "403",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 200,
+        "wires": [
+            [
+                "6a74b9ebbe6a6985"
+            ]
+        ]
+    },
+    {
+        "id": "6a74b9ebbe6a6985",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Forbidden",
+        "statusCode": "403",
+        "headers": {},
+        "x": 1680,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d7cb6b325fb7278b",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "403",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 240,
+        "wires": [
+            [
+                "fda3fb06749734d7"
+            ]
+        ]
+    },
+    {
+        "id": "fda3fb06749734d7",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Bad Request",
+        "statusCode": "400",
+        "headers": {},
+        "x": 1690,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1a80a67fcb64e2f9",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "Internal Server Error",
+        "statusCode": "500",
+        "headers": {},
+        "x": 1720,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4dcafb69db94de0a",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "500",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 80,
+        "wires": [
+            [
+                "1a80a67fcb64e2f9"
+            ]
+        ]
+    },
+    {
+        "id": "55e0124b0801813c",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1510,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b06b08ad0c5219fd",
+        "type": "debug",
+        "z": "aba326dbe5621f19",
+        "name": "debug 51",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "82fcd7c54b8b160d",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Main function (imported)",
+        "func": "const requestBody = msg.payload;\nlet tableName = \"\";\nconst DEFAULT_COUNT = 10;\nlet query = \"\";\nlet queryParams = [];\n\nconst {\n    method,\n    params,\n    rows = DEFAULT_COUNT\n} = requestBody;\n\nswitch (method) {\n    case \"getDowntimeHistory\":\n        tableName = \"litmus.dbo.downtimeHistory\";\n        query = `SELECT TOP ${rows} * FROM ${tableName} WHERE startTime >= @startDate AND endTime < @endDate AND line = @line AND asset = @asset AND scrapCode_text = @scrapCode_text`;\n        queryParams = [\n            { name: 'startDate', value: params.startTime, type: 'VarChar' },\n            { name: 'endDate', value: params.endTime, type: 'VarChar' },\n            { name: 'line', value: params.line, type: 'VarChar' },\n            { name: 'asset', value: params.asset, type: 'VarChar' },\n            { name: 'reasonCode_L1_text', value: params.reasonCode_L1_text, type: 'VarChar' },\n            { name: 'reasonCode_L2_text', value: params.reasonCode_L2_text, type: 'VarChar' }\n        ];\n        break;\n        \n    //done\n     case \"getScrapHistory\":\n        tableName = \"litmus.dbo.scrapHistory\";\n        query = `SELECT TOP ${rows} * FROM ${tableName} WHERE scrapTime BETWEEN @startDate AND @endDate AND line = @line AND asset = @asset AND scrapCode_text = @scrapCode_text`;\n        queryParams = [\n            { name: 'startDate', value: params.startDate, type: 'VarChar' },\n            { name: 'endDate', value: params.endDate, type: 'VarChar' },\n            { name: 'line', value: params.line, type: 'VarChar' },\n            { name: 'asset', value: params.asset, type: 'VarChar' },\n            { name: 'scrapCode_text', value: params.scrapCode_text, type: 'VarChar' }\n        ];\n        break;  // Prevent fall-through with a break statement\n    // case \"incidentTeam\":\n    //     tableName = \"litmus.dbo.incident_team\";\n    //     query = `SELECT TOP ${rows} * FROM ${tableName} WHERE scrapTime BETWEEN @startDate AND @endDate AND line = @line AND asset = @asset AND scrapCode_text = @scrapCode_text`;\n    //     queryParams = [\n    //         { name: 'startDate', value: params.startDate, type: 'VarChar' },\n    //         { name: 'endDate', value: params.endDate, type: 'VarChar' },\n    //         { name: 'line', value: params.line, type: 'VarChar' },\n    //         { name: 'asset', value: params.asset, type: 'VarChar' },\n    //         { name: 'scrapCode_text', value: params.scrapCode_text, type: 'VarChar' }\n    //     ];\n    //     break;  // Prevent fall-through with a break statement\n    // case \"incidentUser\":\n    //     tableName = \"litmus.dbo.incident_user\";\n    //     break;  // Prevent fall-through with a break statement\n    // case \"reasonCodes\":\n    //     tableName = \"litmus.dbo.reasonCodes\";\n    //     break;  // Prevent fall-through with a break statement\n    // case \"scrapCodes\":\n    //     tableName = \"litmus.dbo.scrapCodes\";\n    //     break;  // Prevent fall-through with a break statement\n   \n   \n    default:\n        // Handle unknown method\n        msg.payload = {\n            error: true,\n            message: \"Invalid 'method' specified in the request.\"\n        };\n        msg.statusCode = 400; // Bad Request HTTP status code\n        return msg; // Stop execution and return error message\n}\n\nmsg.topic = query;\nmsg.payload = queryParams;\n\n\n// Continue with the flow\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f13e006034c969e9",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Credentials Verification ",
+        "func": "if (msg.authenticationMethod === 'apiKey') {\n    // Assuming the database query checks for existence and you use the result to validate\n    let apiKeyExists = msg.payload[0]?.keyCount > 0; // Adjust based on your actual payload structure and query result\n\n    if (apiKeyExists) {\n        msg.payload = { success: true, message: \"API key authentication successful.\" };\n        msg.statusCode = 200;\n    } else {\n        msg.payload = { success: false, message: \"Invalid API key.\" };\n        msg.statusCode = 401; // Unauthorized\n    }\n} else if (msg.authenticationMethod === 'usernamePassword') {\n    // Username/Password Authentication\n    // Assuming you have fetched the stored password from the database for the given username\n    let storedPassword = msg.payload[0]?.password; // Adjust based on your actual payload structure\n    let providedPassword = msg.providedPassword;\n\n    // Compare the provided password against the stored password\n    // This example assumes plain text comparison, consider using hashed passwords in a real application\n    if (providedPassword && providedPassword === storedPassword) {\n        msg.payload = { success: true, message: \"Username and password authentication successful.\" };\n        msg.statusCode = 200;\n    } else {\n        msg.payload = { success: false, message: \"Authentication failed.\" };\n        msg.statusCode = 401; // Unauthorized\n    }\n} else {\n    // If the authentication method is not recognized or not provided correctly\n    msg.payload = { success: false, message: \"Unsupported authentication method.\" };\n    msg.statusCode = 400; // Bad Request\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 360,
+        "wires": [
+            [
+                "359104480268e22a",
+                "3d44432df3d92a9d",
+                "bf1a3964bdf7e3d3"
+            ]
+        ]
+    },
+    {
+        "id": "730aabc50aa8a8a4",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "function 17",
+        "func": "let id = msg.payload.id;\n\n// Create an object for the parameters\n// It should match the expected format by the MSSQL-PLUS node\n//msg.payload = {}; // Clearing payload for MSSQL-PLUS to avoid conflicts\nmsg.parameters = [\n    {\n        name: \"id\",\n        value: id,\n        type: \"Int\"\n    }\n];\n\nmsg.topic = \"SELECT * FROM litmus.dbo.scrapHistory WHERE id = @id\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ee5e23433367ad83",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Configuration Object",
+        "func": "// A configuration object that defines the expected parameters for each table.\nconst tableConfigs = {\n    scrapHistory: {\n        tableName: \"litmus.dbo.scrapHistory\",\n        validParams: ['startDate', 'endDate', 'line', 'asset', 'scrapCode_text']\n        // ... other table-specific configurations\n    },\n    downtimeHistory: {\n        tableName: \"litmus.dbo.downtimeHistory\",\n        validParams: ['startDate', 'endDate', 'machineID']\n        // ... other table-specific configurations\n    },\n    // ... configurations for other tables\n};\n\nconst requestBody = msg.payload;\nlet queryParams = [];\nlet conditions = [];\nlet queryBase = \"\";\nlet tableName = \"\";\nlet rows = requestBody.rows || 100;\n\n// Determine the table and parameters based on the method provided in the request\nconst tableConfig = tableConfigs[requestBody.method];\n\nif (tableConfig) {\n    tableName = tableConfig.tableName;\n    queryBase = `SELECT TOP ${rows} * FROM ${tableName}`;\n    // Iterate over the validParams and check if they have been provided in the request\n    tableConfig.validParams.forEach(param => {\n        if (requestBody.params[param]) {\n            conditions.push(`${param} = @${param}`);\n            queryParams.push({\n                name: param,\n                value: requestBody.params[param],\n                type: 'VarChar' // This should be set according to the actual data type of the field\n            });\n        }\n    });\n} else {\n    node.error(\"Invalid method provided\");\n    return null; // Stop the flow since we encountered an error\n}\n\n// Build the full SQL query\nlet sqlQuery = queryBase;\nif (conditions.length) {\n    sqlQuery += \" WHERE \" + conditions.join(\" AND \");\n}\n\nmsg.topic = sqlQuery;\nmsg.payload = queryParams;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b043cb3fb805cc7",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Configuration Object v2 (downtime History)",
+        "func": "const requestBody = msg.payload;\nlet rows = msg.req.body.rows;\nconst tableName = \"litmus.dbo.downtimeHistory\"; // The table you are querying\nconst DEFAULT_ROWS = 100;\nlet queryBase = `SELECT TOP ${rows || DEFAULT_ROWS} * FROM ${tableName}`;\nlet queryParams = [];\nlet whereConditions = [];\n\n// Dynamically construct the WHERE clause based on supplied parameters\nfor (const param in requestBody.params) {\n    const value = requestBody.params[param];\n    if (value) { // Assuming an empty string is not a valid value\n        switch (param) {\n            case \"startDate\":\n                whereConditions.push(`startTime >= @startDate`);\n                queryParams.push({ name: 'startDate', value: value, type: 'DateTime' });\n                break;\n            case \"endDate\":\n                whereConditions.push(`endTime <= @endDate`);\n                queryParams.push({ name: 'endDate', value: value, type: 'DateTime' });\n                break;\n            case \"reasonCode_L1_text\":\n            case \"reasonCode_L2_text\":\n            case \"asset\":\n            case \"line\":\n                // Directly mapping other parameters to database columns\n                whereConditions.push(`${param} = @${param}`);\n                queryParams.push({ name: param, value: value, type: 'VarChar' }); // Adjust the type as needed\n                break;\n            // You can add more cases here if you have more parameters\n        }\n    }\n}\n\n// Combine all conditions to form the WHERE clause, if there are any conditions\nif (whereConditions.length > 0) {\n    queryBase += \" WHERE \" + whereConditions.join(\" AND \");\n}\n\n// Set the query and parameters for the MSSQL node\nmsg.topic = queryBase;\nmsg.payload = queryParams; // This should be an array of objects with name and value properties\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "5d2aea17334fed6a"
+            ]
+        ]
+    },
+    {
+        "id": "2ba68badc0542e79",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Configuration Object v2 (scrapHistory)",
+        "func": "const requestBody = msg.payload;\nlet rows = msg.req.body.rows;\nconst tableName = \"litmus.dbo.scrapHistory\"; // The table you are querying\nconst DEFAULT_ROWS = 100;\nlet queryBase = `SELECT TOP ${rows || DEFAULT_ROWS} * FROM ${tableName}`;\nlet queryParams = [];\nlet whereConditions = [];\n\n// Dynamically construct the WHERE clause based on supplied parameters\nfor (const param in requestBody.params) {\n    const value = requestBody.params[param];\n    if (value) {  // Assuming an empty string is not a valid value\n        if (param === \"startDate\" || param === \"endDate\") {\n            const operator = param === \"startDate\" ? \">=\" : \"<=\";\n            whereConditions.push(`scrapTime ${operator} @${param}`);\n            queryParams.push({ name: param, value: value, type: 'DateTime' });\n        } else {\n            // For other parameters that directly map to database columns\n            whereConditions.push(`${param} = @${param}`);\n            queryParams.push({ name: param, value: value, type: 'VarChar' }); // Adjust the type as needed\n        }\n    }\n}\n\n// Combine all conditions to form the WHERE clause, if there are any conditions\nif (whereConditions.length > 0) {\n    queryBase += \" WHERE \" + whereConditions.join(\" AND \");\n}\n\n// Set the query and parameters for the MSSQL node\nmsg.topic = queryBase;\nmsg.payload = queryParams; // This should be an array of objects with name and value properties\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "5d2aea17334fed6a"
+            ]
+        ]
+    },
+    {
+        "id": "794cd0f8789638d5",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Configuration Object v2 (scrapCodes)",
+        "func": "const requestBody = msg.payload;\nlet rows = msg.req.body.rows;\nconst tableName = \"litmus.dbo.scrapCodes\"; // The table you are querying\nconst DEFAULT_ROWS = 100;\nlet queryBase = `SELECT TOP ${rows || DEFAULT_ROWS} * FROM ${tableName}`;\nlet queryParams = [];\nlet whereConditions = [];\n\n// Dynamically construct the WHERE clause based on supplied parameters\nfor (const param in requestBody.params) {\n    const value = requestBody.params[param];\n    if (value) {  // Assuming an empty string is not a valid value\n        if (param === \"startDate\" || param === \"endDate\") {\n            const operator = param === \"startDate\" ? \">=\" : \"<=\";\n            whereConditions.push(`scrapTime ${operator} @${param}`);\n            queryParams.push({ name: param, value: value, type: 'DateTime' });\n        } else {\n            // For other parameters that directly map to database columns\n            whereConditions.push(`${param} = @${param}`);\n            queryParams.push({ name: param, value: value, type: 'VarChar' }); // Adjust the type as needed\n        }\n    }\n}\n\n// Combine all conditions to form the WHERE clause, if there are any conditions\nif (whereConditions.length > 0) {\n    queryBase += \" WHERE \" + whereConditions.join(\" AND \");\n}\n\n// Set the query and parameters for the MSSQL node\nmsg.topic = queryBase;\nmsg.payload = queryParams; // This should be an array of objects with name and value properties\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 520,
+        "wires": [
+            [
+                "5d2aea17334fed6a"
+            ]
+        ]
+    },
+    {
+        "id": "b614db3d08a3beef",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Configuration Object v2 (incidentUser)",
+        "func": "const requestBody = msg.payload;\nlet rows = msg.req.body.rows;\nconst tableName = \"litmus.dbo.incident_user\"; // The table you are querying\nconst DEFAULT_ROWS = 100;\nlet queryBase = `SELECT TOP ${rows || DEFAULT_ROWS} * FROM ${tableName}`;\nlet queryParams = [];\nlet whereConditions = [];\n\n// Dynamically construct the WHERE clause based on supplied parameters\nfor (const param in requestBody.params) {\n    const value = requestBody.params[param];\n    if (value) {  // Assuming an empty string is not a valid value\n       // For other parameters that directly map to database columns\n        whereConditions.push(`${param} = @${param}`);\n        queryParams.push({ name: param, value: value, type: 'VarChar' }); // Adjust the type as needed\n    }\n}\n\n// Combine all conditions to form the WHERE clause, if there are any conditions\nif (whereConditions.length > 0) {\n    queryBase += \" WHERE \" + whereConditions.join(\" AND \");\n}\n\n// Set the query and parameters for the MSSQL node\nmsg.topic = queryBase;\nmsg.payload = queryParams; // This should be an array of objects with name and value properties\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 480,
+        "wires": [
+            [
+                "5d2aea17334fed6a"
+            ]
+        ]
+    },
+    {
+        "id": "a21dd7501b53d7d5",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "Switch",
+        "property": "req.body.method",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDowntimeHistory",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getScrapHistory",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getIncidentUser",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getScrapCodes",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "9b043cb3fb805cc7"
+            ],
+            [
+                "2ba68badc0542e79"
+            ],
+            [
+                "b614db3d08a3beef"
+            ],
+            [
+                "794cd0f8789638d5"
+            ]
+        ]
+    },
+    {
+        "id": "359104480268e22a",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "401",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 260,
+        "wires": [
+            [
+                "72b53611c7e1f13d"
+            ]
+        ]
+    },
+    {
+        "id": "3d44432df3d92a9d",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            [
+                "e3526f78e93eeb5b"
+            ]
+        ]
+    },
+    {
+        "id": "72b53611c7e1f13d",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "statusCode": "401",
+        "headers": {},
+        "x": 1220,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "bf1a3964bdf7e3d3",
+        "type": "debug",
+        "z": "aba326dbe5621f19",
+        "name": "debug 52",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e2ea744cd9aeb0c1",
+        "type": "http response",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "statusCode": "400",
+        "headers": {},
+        "x": 660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ee3422af16298a41",
+        "type": "switch",
+        "z": "aba326dbe5621f19",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "400",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "e2ea744cd9aeb0c1"
+            ]
+        ]
+    },
+    {
+        "id": "eb230fddeb5cba56",
+        "type": "function",
+        "z": "aba326dbe5621f19",
+        "name": "Credentials Extraction ",
+        "func": "let username = msg.payload.username;\nlet password = msg.payload.password;\n// Adjusted to consistently get the API key, ensuring we account for both direct payload and req.body\nlet apiKey = msg.payload.api_key || msg.req.body.api_key;\n\n// Determine the authentication method and set up accordingly\nif (apiKey) {\n    // For API key authentication\n    msg.authenticationMethod = 'apiKey';\n    msg.apiKey = apiKey;\n    // Adjusted for consistency in parameterization\n    msg.topic = `SELECT COUNT(apiKey) AS keyCount FROM litmus.dbo.api_key WHERE apiKey = @apiKey`;\n    msg.parameters = [\n        { name: \"apiKey\", value: msg.apiKey, type: \"VarChar\" }\n    ];\n} else if (username && password) {\n    // For username/password authentication\n    msg.authenticationMethod = 'usernamePassword';\n    // Ensure the query matches the parameterization style\n    msg.topic = 'SELECT password FROM litmus.dbo.users WHERE username = @username';\n    msg.parameters = [\n        { name: \"username\", value: username, type: \"VarChar\" }\n    ];\n    // Store provided password for comparison later\n    msg.providedPassword = password;\n} else {\n    // Neither method provided adequately\n    msg.payload = { success: false, message: \"Authentication requires either an API key or both username and password.\" };\n    msg.statusCode = 400; // Bad Request\n    return msg;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "ee3422af16298a41",
+                "29acc902adb36e7d",
+                "9463d0385db06f16"
+            ]
+        ]
+    },
+    {
+        "id": "99aa93fffde390a2",
+        "type": "MSSQL-CN",
+        "name": "litmus",
+        "server": "192.168.0.232",
+        "port": "",
+        "encyption": false,
+        "trustServerCertificate": false,
+        "database": "",
+        "useUTC": false,
+        "connectTimeout": "",
+        "requestTimeout": "",
+        "cancelTimeout": "",
+        "pool": "",
+        "parseJSON": false,
+        "enableArithAbort": true,
+        "readOnlyIntent": false
     }
 ]
